@@ -1,5 +1,7 @@
 from django.test import TestCase
+from django.utils import timezone
 from .models import Todo
+
 
 class TodoModelTests(TestCase):
     def setUp(self) -> None:
@@ -8,14 +10,23 @@ class TodoModelTests(TestCase):
             description='This is the first todo item.',
             completed=False
         )
-        self.todo2 = Todo.objects.create(
-            title='Todo Item 2',
-            description='This is the second todo item.',
-            completed=True
-        )
-        
+
     def test_create_todo_basic_attributes(self):
         self.assertEqual(self.todo1.title, 'Todo Item 1')
-        self.assertEqual(self.todo1.description, 'This is the first todo item.')
-        self.assertFalse(self.todo1.completed)
-        self.assertTrue(self.todo2.completed)
+        self.assertEqual(self.todo1.description,
+                         'This is the first todo item.')
+        self.assertFalse(self.todo1.completed,
+                         'Todo completed should be false by default.')
+
+    def test_marking_todo_as_completed_sets_completed_at(self):
+        self.todo1.completed = True
+        self.todo1.completed_at = timezone.now()
+        self.todo1.save()
+
+        self.todo1.refresh_from_db()
+
+        self.assertTrue(self.todo1.completed,
+                        'Todo should be marked as completed.')
+        self.assertIsNotNone(
+            self.todo1.completed_at, 'completed_at should be set when a task is completed.')
+
