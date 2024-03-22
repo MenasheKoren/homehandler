@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Todo
+from ..models import Todo
 
 
 class TodoModelTests(TestCase):
