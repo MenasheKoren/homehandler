@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 
 from home.views import HomePageView
+from todo.views import CreateTodoView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),
     path("", HomePageView.as_view(), name="home"),
+    path("todo/", include('todo.urls'))
 ]

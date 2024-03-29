@@ -137,6 +137,8 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
+COLORIZE_CONSOLE_OUTPUT = True
+
 DJANGO_BOOTSTRAP5 = {
 
     # The complete URL to the Bootstrap CSS file
