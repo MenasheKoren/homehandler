@@ -3,18 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0" />
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
     <title>Home Handler</title>
-    {% load django_bootstrap5 %}
-
+    {% load django_bootstrap5 %} 
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-
     {% bootstrap_messages %}
   </head>
   <body>
-    <h1>Welcome to the Home Handler</h1>
-    <p>Keep your household's tasks in order.</p>
+    <main class='mx-auto p-2'>
+      <h1>Welcome to the Home Handler</h1>
+      <p>Keep your household's tasks in order.</p>
+
+      {% block content %} 
+      {% endblock content %}
+    </main>
   </body>
 </html>
