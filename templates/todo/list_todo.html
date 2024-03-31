@@ -1,0 +1,24 @@
+{% extends 'home/index.html' %}
+
+{% block content %}
+    <h2>Todo List</h2>
+    {% if todos %}
+        <ul>
+            {% for todo in todos %}
+                <li>
+                    
+                    {% if todo.completed %}
+                        <span>Completed</span>
+                    {% else %}
+                        <span>Not Completed</span>
+                    {% endif %}
+                        
+                    <strong>{{ todo.title }}</strong>
+                    <p>{{ todo.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No todos available.</p>
+    {% endif %}
+{% endblock content %}
