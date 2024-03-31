@@ -24,4 +24,6 @@ class TodoListViewTests(TestCase):
         self.assertTrue(response.status_code, 200)
         self.assertTemplateUsed(response, 'todo/list_todo.html')
 
-    
+    def test_empty_todo_list_message(self):
+        response = self.client.get(reverse('todo:list'))
+        self.assertContains(response, 'No todos available.')
