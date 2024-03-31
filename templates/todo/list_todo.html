@@ -1,9 +1,10 @@
-{% extends 'home/index.html' %}
+{% extends 'home/index.html' %} {% load django_bootstrap5 %}
 
 {% block content %}
     <h2>Todo List</h2>
+    <a href="{% url 'todo:create' %}">{% bootstrap_button 'Add todo' size='md' %}</a>
     {% if todos %}
-        <ul>
+        <ol>
             {% for todo in todos %}
                 <li>
                     
@@ -17,7 +18,7 @@
                     <p>{{ todo.description }}</p>
                 </li>
             {% endfor %}
-        </ul>
+        </ol>
     {% else %}
         <p>No todos available.</p>
     {% endif %}
