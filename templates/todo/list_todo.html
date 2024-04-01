@@ -1,0 +1,25 @@
+{% extends 'home/index.html' %} {% load django_bootstrap5 %}
+
+{% block content %}
+    <h2>Todo List</h2>
+    <a href="{% url 'todo:create' %}">{% bootstrap_button 'Add todo' size='md' %}</a>
+    {% if todos %}
+        <ol>
+            {% for todo in todos %}
+                <li>
+                    
+                    {% if todo.completed %}
+                        <span>Completed</span>
+                    {% else %}
+                        <span>Not Completed</span>
+                    {% endif %}
+                        
+                    <strong>{{ todo.title }}</strong>
+                    <p>{{ todo.description }}</p>
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>No todos available.</p>
+    {% endif %}
+{% endblock content %}
