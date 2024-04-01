@@ -51,9 +51,9 @@ class TodoListViewTests(TestCase):
 
     def test_list_view_displays_items(self):
         response = self.client.get(reverse('todo:list'))
-        self.assertFalse(response, self.todo1.completed)
+        self.assertContains(response, "Not Completed", html=True) 
         self.assertContains(response, self.todo1.title)
         self.assertContains(response, self.todo1.description)
-        self.assertTrue(response, self.todo2.completed)
+        self.assertContains(response, "Completed", html=True) 
         self.assertContains(response, self.todo2.title)
         self.assertContains(response, self.todo2.description)
