@@ -9,9 +9,9 @@
                 <li>
                     
                     {% if todo.completed %}
-                        <span>Completed</span>
+                        <span><a href="{% url 'todo:toggle' pk=todo.pk %}">Completed</a></span>
                     {% else %}
-                        <span>Not Completed</span>
+                        <span><a href="{% url 'todo:toggle' pk=todo.pk %}">Not Completed</a></span>
                     {% endif %}
                         
                     <strong>{{ todo.title }}</strong>

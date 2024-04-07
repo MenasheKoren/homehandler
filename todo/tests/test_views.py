@@ -69,10 +69,10 @@ class TodoUpdateViewTests(TestCase):
 
     def test_toggle_completed_todo_status(self):
         self.assertEqual(self.todo.completed, False)
-        self.client.get(reverse('todo-toggle', args=[self.todo.id]))
+        self.client.get(reverse('todo:toggle', args=[self.todo.id]))
         self.todo.refresh_from_db()
         self.assertEqual(self.todo.completed, True)
 
     def test_redirect_after_toggle(self):
-        response = self.client.get(reverse('todo-toggle', args=[self.todo.id]))
-        self.assertRedirects(response, reverse('todo-list'))
+        response = self.client.get(reverse('todo:toggle', args=[self.todo.id]))
+        self.assertRedirects(response, reverse('todo:list'))
