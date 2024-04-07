@@ -51,9 +51,28 @@ class TodoListViewTests(TestCase):
 
     def test_list_view_displays_items(self):
         response = self.client.get(reverse('todo:list'))
-        self.assertContains(response, "Not Completed", html=True) 
+        self.assertContains(response, "Not Completed", html=True)
         self.assertContains(response, self.todo1.title)
         self.assertContains(response, self.todo1.description)
-        self.assertContains(response, "Completed", html=True) 
+        self.assertContains(response, "Completed", html=True)
         self.assertContains(response, self.todo2.title)
         self.assertContains(response, self.todo2.description)
+
+
+class TodoUpdateViewTests(TestCase):
+    def setUp(self) -> None:
+        self.todo = Todo.objects.create(
+            completed=False,
+            title='Sample todo',
+            description='This is a sample todo.'
+        )
+
+    def test_toggle_completed_todo_status(self):
+        self.assertEqual(self.todo.completed, False)
+        self.client.get(reverse('todo-toggle', args=[self.todo.id]))
+        self.todo.refresh_from_db()
+        self.assertEqual(self.todo.completed, True)
+
+    def test_redirect_after_toggle(self):
+        response = self.client.get(reverse('todo-toggle', args=[self.todo.id]))
+        self.assertRedirects(response, reverse('todo-list'))
