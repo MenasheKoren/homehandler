@@ -14,7 +14,7 @@ class TodoModelTests(TestCase):
         self.assertEqual(self.todo1.title, 'Todo Item 1')
         self.assertEqual(self.todo1.description,
                          'This is the first todo item.')
-        self.assertFalse(self.todo1.completed,
+        self.assertEqual(self.todo1.completed, False,
                          'Todo completed should be false by default.')
 
     def test_marking_todo_as_completed_sets_completed_at(self):
