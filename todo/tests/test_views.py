@@ -76,3 +76,20 @@ class TodoUpdateViewTests(TestCase):
     def test_redirect_after_toggle(self):
         response = self.client.get(reverse('todo:toggle', args=[self.todo.id]))
         self.assertRedirects(response, reverse('todo:list'))
+
+    def test_todo_update_view_has_instance(self):
+        response = self.client.get(reverse('todo:update'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'todo/update_todo.html')
+
+    def test_todo_update_view_populates_form(self):
+        response = self.client.get(reverse('todo:update', args=[self.todo.id]))
+        self.assertContains(response, self.todo.completed, html=True)
+        self.assertContains(response, self.todo.title)
+        self.assertContains(response, self.todo.description)
+
+    def test_todo_update_view_updates_item(self):
+        response = self.client.post(reverse('todo:update', args=[self.todo.id]), {'title': 'Updated item', 'description': 'This is an updated item.'})
+        self.todo.refresh_from_db()
+        self.assertEqual(self.todo.title, 'Updated item')
+        self.assertEqual(self.todo.description, 'This is an updated item.')
