@@ -93,3 +93,7 @@ class TodoUpdateViewTests(TestCase):
         self.todo.refresh_from_db()
         self.assertEqual(self.todo.title, 'Updated item')
         self.assertEqual(self.todo.description, 'This is an updated item.')
+
+    def test_redirect_after_update(self):
+        response = self.client.get(reverse('todo:update', args=[self.todo.id]))
+        self.assertRedirects(response, reverse('todo:list'))
