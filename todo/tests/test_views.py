@@ -94,7 +94,26 @@ class TodoUpdateViewTests(TestCase):
         self.assertEqual(self.todo.description, 'This is an updated item.')
 
     def test_redirect_after_update(self):
-        form_data = {'title': 'Updated Title', 'description': 'Updated Description', 'completed': False}
+        form_data = {
+            'title': 'Updated Title', 
+            'description': 'Updated Description', 
+            'completed': False
+            }
         response = self.client.post(reverse('todo:update', args=[self.todo.id]), data=form_data, follow=True)
         self.assertRedirects(response, reverse('todo:list'), status_code=302, target_status_code=200)
 
+class TodoDeleteViewTests(TestCase):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        cls.todo = Todo.objects.create(
+            completed=True,
+            title='Sample item',
+            description='Delete this item.'
+        )
+        return super().setUpTestData()
+    
+    def test_delete_todo_item(self):
+        self.assertEqual(Todo.objects.count(), 1)
+        response = self.client.post(reverse('todo:delete', args=[self.todo.id]))
+        self.assertEqual(Todo.objects.count(), 0)
+        self.assertRedirects(response, reverse('todo:list'))
