@@ -17,6 +17,7 @@
                     <strong>{{ todo.title }}</strong>
                     <p>{{ todo.description }}</p>
                     <a href="{% url 'todo:update' pk=todo.pk %}">{% bootstrap_button 'Update todo' size='sm' %}</a>
+                    {% include '../shared/buttons/delete_button.html' with urlValue='todo:delete' pkValue=todo.pk %}
                 </li>
             {% endfor %}
         </ol>

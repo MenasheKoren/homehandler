@@ -36,6 +36,6 @@ class TodoUpdateView(UpdateView):
 
 class TodoDeleteView(DeleteView):
     model = Todo
-    template_name = "todo/delete_todo.html"
+    # template_name = "todo/delete_todo.html"
     success_url = reverse_lazy('todo:list')
 

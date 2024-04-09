@@ -1,0 +1,15 @@
+{% extends 'home/index.html' %} {% load django_bootstrap5 %}
+
+{% block content %}
+<div class="container">
+    <h2>Are you sure you want to delete "{{ object.title }}"?</h2>
+    <form method="post" class='form'>
+    {% csrf_token %}
+    {% bootstrap_form form %}
+
+    {% bootstrap_button button_type="submit" content="Yes, delete it" button_class='btn-danger' %}
+    {% include '../shared/buttons/cancel_button.html'  with urlValue='todo:list' %}
+
+    </form>
+</div>    
+{% endblock content %}
