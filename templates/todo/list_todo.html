@@ -9,13 +9,14 @@
                 <li>
                     
                     {% if todo.completed %}
-                        <span>Completed</span>
+                        <span><a href="{% url 'todo:toggle' pk=todo.pk %}">Completed</a></span>
                     {% else %}
-                        <span>Not Completed</span>
+                        <span><a href="{% url 'todo:toggle' pk=todo.pk %}">Not Completed</a></span>
                     {% endif %}
                         
                     <strong>{{ todo.title }}</strong>
                     <p>{{ todo.description }}</p>
+                    <a href="{% url 'todo:update' pk=todo.pk %}">{% bootstrap_button 'Update todo' size='sm' %}</a>
                 </li>
             {% endfor %}
         </ol>
