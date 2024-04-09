@@ -1,9 +1,10 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, reverse
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, View
-from .models import Todo
+from django.views.generic import CreateView, ListView, UpdateView, View
+
 from .forms import TodoForm
+from .models import Todo
 
 
 class TodoCreateView(CreateView):
@@ -25,3 +26,10 @@ class ToggleTodoCompletedView(View):
         todo.completed = not todo.completed
         todo.save()
         return HttpResponseRedirect(reverse('todo:list'))
+
+
+class TodoUpdateView(UpdateView):
+    model = Todo
+    template_name = "todo/update_todo.html"
+    fields = ['completed', 'title', 'description']
+    success_url = reverse_lazy('todo:list')
