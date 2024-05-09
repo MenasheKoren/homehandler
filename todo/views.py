@@ -1,7 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, reverse
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, UpdateView, View, DeleteView
+from django.views.generic import (CreateView, DeleteView, ListView, UpdateView,
+                                  View)
 
 from .forms import TodoForm
 from .models import Todo
