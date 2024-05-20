@@ -1,27 +1,40 @@
-{% extends 'home/index.html' %} {% load django_bootstrap5 %}
+{% extends 'home/index.html' %}
+{% load django_bootstrap5 %}
 
 {% block content %}
-    <h2>Todo List</h2>
-    <a href="{% url 'todo:create' %}">{% bootstrap_button 'Add todo' size='md' %}</a>
-    {% if todos %}
-        <ol>
-            {% for todo in todos %}
-                <li>
-                    
-                    {% if todo.completed %}
-                        <span><a href="{% url 'todo:toggle' pk=todo.pk %}">Completed</a></span>
-                    {% else %}
-                        <span><a href="{% url 'todo:toggle' pk=todo.pk %}">Not Completed</a></span>
-                    {% endif %}
-                        
-                    <strong>{{ todo.title }}</strong>
-                    <p>{{ todo.description }}</p>
-                    <a href="{% url 'todo:update' pk=todo.pk %}">{% bootstrap_button 'Update todo' size='sm' %}</a>
-                    {% include '../shared/buttons/delete_button.html' with urlValue='todo:delete' pkValue=todo.pk %}
-                </li>
-            {% endfor %}
-        </ol>
-    {% else %}
-        <p>No todos available.</p>
-    {% endif %}
-{% endblock content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-end">
+        <div class="todo-container" style="width: 50%; min-width: 25%;">
+            <h2 class="mb-3">Todo List</h2>
+
+            <div class="list-group">
+                <a href="{% url 'todo:create' %}" class="list-group-item list-group-item-action list-group-item-success d-flex justify-content-between">
+                    <strong>Add New Task</strong>
+                    {% bootstrap_button "+" button_type="submit" button_class="btn-success btn-sm" %}
+                </a>
+                {% for todo in todos %}
+                <div class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="w-50">
+                            <h5 class="mb-1">{{ todo.title }}</h5>
+                            <p class="mb-1">{{ todo.description }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center p-1 w-50">
+                            <a href="{% url 'todo:toggle' pk=todo.pk %}" class="btn {% if todo.completed %}btn-success{% else %}btn-outline-secondary{% endif %} btn-sm mr-auto">
+                                {% if todo.completed %}Completed{% else %}Not Completed{% endif %}
+                            </a>
+                            <span class="ml-auto">
+                                {% include '../shared/buttons/update_button.html' with urlValue='todo:update' pkValue=todo.pk %}
+                                {% include '../shared/buttons/delete_button.html' with urlValue='todo:delete' pkValue=todo.pk %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="list-group-item">No todos available.</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
