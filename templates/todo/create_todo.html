@@ -1,16 +1,2 @@
-{% extends 'home/index.html' %} {% load django_bootstrap5 %}
-
-{% block content %}
-<form method="post" class='form'>
-    {% csrf_token %}
-    {% bootstrap_form form %}
-
-    {% bootstrap_button button_type="submit" content="OK" %}
-    {% bootstrap_button button_type="reset" content="Reset" %}
-    {% include '../shared/buttons/cancel_button.html'  with urlValue='todo:list' %}
-
-
-</form>
-    
-{% endblock content %}
+{% extends './base_todo_form.html' %}
     
