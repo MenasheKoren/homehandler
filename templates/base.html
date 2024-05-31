@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Home Handler{% endblock %}</title>
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+</head>
+<body class='d-flex flex-column min-vh-100'>
+    <header>
+        {% block navbar %}
+        {% include './shared/navbar.html' %}
+        {% endblock navbar %}
+    </header>
+    <main class="container my-4 flex-fill">
+        {% block content %}{% endblock content %}
+    </main>
+    <footer class="footer mt-auto py-3 bg-light text-center">
+        {% block footer %}
+        {% include './shared/footer.html' %}
+        {% endblock footer %}
+    </footer>
+</body>
+</html>
