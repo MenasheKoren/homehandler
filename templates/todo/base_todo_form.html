@@ -1,8 +1,8 @@
-{% extends 'home/index.html' %} {% load django_bootstrap5 %}
+{% extends 'base.html' %} {% load django_bootstrap5 %}
 
 {% block content %}
 <div class='container mt-4'>
-    <form method="post" class='form p-3 shadow rounded bg-light-subtle'>
+    <form method="post" class='form p-3 shadow rounded bg-secondary-subtle'>
         {% csrf_token %}
         {% bootstrap_form form %}
         <div class="d-flex justify-content-end gap-2 mt-3">
